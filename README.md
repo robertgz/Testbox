@@ -16,6 +16,7 @@ Francisco Malpartida
   * 300 PSI
   * Kavlico P4000
   * [Product page](http://www.kavlico.com/kavlico-pressure/pressure-products/piezo-resistive-pressure-sensors/p4000) with link to datasheet
+  * [Referenced formum discussion](https://forum.arduino.cc/index.php?topic=376384.0)
 * Flow Sensor
   * AICHI
   * Model OF05ZAT
