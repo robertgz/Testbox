@@ -1,5 +1,12 @@
 Arduino project reading from three sensors and outputing to an lcd.
 
+## Dependencies
+* MAX6675 library by Adafruit Version 1.0.0
+  * Install from Arduino's Library Manager
+* New LiquidCrystal Library 1.5.0
+  * Download ZIP from https://bitbucket.org/fmalpartida/new-liquidcrystal/wiki/Home 
+  * Place NewLiquidCrystal_lib folder from within ZIP into user folder \Documents\Arduino\libraries
+
 ## Components
 * Arduino UNO
   * SainSmart
