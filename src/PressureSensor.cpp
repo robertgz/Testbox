@@ -3,12 +3,12 @@
 
 PressureSensor::PressureSensor(int pin) {
   _pin = pin;
-  _pressure_in_PSI = 0;
-  _pressure_sensor_in_MV = 0;
   _pressure_sensor_reading = 0;
+  _pressure_sensor_in_MV = 0;
+  _pressure_in_PSI = 0;
 }
 
-void PressureSensor::readPressure(void) {
+void PressureSensor::readSensor(void) {
   // 300 PSI sensor outputs range from .5 Volts to 4.5 Volts
   //   .5 V =   0 PSI
   //  4.5 V = 300 PSI
@@ -23,7 +23,7 @@ void PressureSensor::readPressure(void) {
 }
 
 int PressureSensor::getPressure(void) {
-  PressureSensor::readPressure();
+  PressureSensor::readSensor();
   return _pressure_in_PSI;
 }
 

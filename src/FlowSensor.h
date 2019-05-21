@@ -6,7 +6,7 @@
 class FlowSensor {
   public:
     FlowSensor(int pin);
-    void readFlowRate();
+    void readSensor();
     float getFlowRate();
     void getFormatedOutput(char* charData);
     void getFormatedSerialOutput(char* charData);

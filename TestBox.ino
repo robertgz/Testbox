@@ -1,28 +1,26 @@
 // include the library code
 #include <Wire.h> 
 #include <LiquidCrystal_I2C.h>
+#include <max6675.h>
 
-#include "FlowSensor.h"
-#include "PressureSensor.h"
-
-// int lcd_pin_sda = A4;
-// int lcd_pin_scl = A5;
+#include "src\FlowSensor.h"
+#include "src\PressureSensor.h"
+#include "src\TemperatureSensor.h"
 
 LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);
-// LiquidCrystal_I2C lcd(0x27, 2, 1, 0,
-//                       4, 5, 6, 7, 
-//                       3, POSITIVE);
 
 unsigned long previousUpdateTime;
 const unsigned long updateRate = 1000; // in milliseconds
 
 const int flowSensorPin = 2;
 const int pressureSensorPin = A0;
+const int tempSensorPinSCK = 9;
+const int tempSensorPinCS = 13;
+const int tempSensorPinSO = 10;
 
 FlowSensor flowSensor(flowSensorPin);
 PressureSensor pressureSensor(pressureSensorPin);
-
-int output_temperature = 0;
+TemperatureSensor temperatureSensor(tempSensorPinSCK, tempSensorPinCS, tempSensorPinSO);
 
 void setup() {  
   Serial.begin(9600);
@@ -37,62 +35,54 @@ void loop() {
   unsigned long elapsedTime = millis() - previousUpdateTime;
   elapsedTime = abs(elapsedTime);
 
-  float output_flow = 0.0f;
-
-  // update every updateRate milliseconds
+  // read sensors and display output every updateRate milliseconds
   if (elapsedTime >= updateRate) {
 
-    flowSensor.readFlowRate();
-    pressureSensor.readPressure();
-    // output_temperature = getTemperature();
+    flowSensor.readSensor();
+    pressureSensor.readSensor();
+    temperatureSensor.readSensor();
 
-    updateLCD(output_temperature);
-
-    // For testing
-    outputToSerial(output_temperature);
+    updateLCD();
+    outputToSerial(); // For debugging
 
     previousUpdateTime = millis();
   }
 }
 
-void updateLCD(int temperature) {
+void updateLCD() {
     lcd.setCursor( 0, 0 );            // go to the first row
     lcd.print("Test Box Sensor Data");
 
-    // output Flow rate
-    // needs testing
     char flowOutput[41];
     flowSensor.getFormatedOutput(flowOutput);
     lcd.setCursor( 0, 1 );            // go to the second row
     lcd.print(flowOutput);
-    // needs testing
 
-    // output Pressure
     char pressureOutput[41];
     pressureSensor.getFormatedOutput(pressureOutput);
     lcd.setCursor( 0, 2 );            // go to the third row
-    lcd.println(pressureOutput);
+    lcd.print(pressureOutput);
 
-    // output Temperature
+    char temperatureOutput[41];
+    temperatureSensor.getFormatedOutput(temperatureOutput);
     lcd.setCursor( 0, 3 );            // go to the fourth row
-    lcd.print("Temp: ");
-    lcd.print(temperature);
-    lcd.print("\xDF""F    ");
+    lcd.print(temperatureOutput);
 }
 
-void outputToSerial(int temperature){
-    Serial.println("== Diaplay updated ==");
+void outputToSerial(){
+    Serial.println("== Display updated ==");
 
-    char flowOutput[41]; // needs testing
-    flowSensor.getFormatedSerialOutput(flowOutput); // new
+    char flowOutput[41];
+    flowSensor.getFormatedSerialOutput(flowOutput);
     Serial.println(flowOutput);
     
-    // output Pressure
     char pressureOutput[41];
     pressureSensor.getFormatedSerialOutput(pressureOutput);
     Serial.println(pressureOutput);
     
-    Serial.print("Temp: ");
-    Serial.print(temperature);
-    Serial.println(" deg F");
+    char temperatureOutput[41];
+    temperatureSensor.getFormatedSerialOutput(temperatureOutput);
+    Serial.println(temperatureOutput);
+
+    temperatureSensor.readSensor(); // not sure why this is needed
 }

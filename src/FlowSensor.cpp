@@ -19,7 +19,7 @@ void FlowSensor::_pulseCounter() {
   FlowSensor::_totalPulsesDetected++;
 }
 
-void FlowSensor::readFlowRate() {
+void FlowSensor::readSensor() {
   unsigned long flowMeasurementElapsedTime;
   unsigned long pulses;
 
@@ -40,7 +40,7 @@ void FlowSensor::readFlowRate() {
 }
 
 float FlowSensor::getFlowRate(){
-  FlowSensor::readFlowRate();
+  FlowSensor::readSensor();
   return _flow;
 }
 

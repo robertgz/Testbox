@@ -6,7 +6,7 @@
 class PressureSensor {
   public:
     PressureSensor(int pin);
-    void readPressure(void);
+    void readSensor(void);
     int getPressure(void);
 
     void getFormatedOutput(char* charData);
@@ -14,9 +14,9 @@ class PressureSensor {
 
   private:
     int _pin;
-    int _pressure_in_PSI;
-    int _pressure_sensor_in_MV;
     int _pressure_sensor_reading;
+    int _pressure_sensor_in_MV;
+    int _pressure_in_PSI;
 };
 
 #endif
