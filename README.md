@@ -30,7 +30,3 @@ Francisco Malpartida
     * https://www.sparkfun.com/datasheets/IC/MAX6675.pdf
   * [MAX6675-library](https://github.com/adafruit/MAX6675-library)
   * Note: MAX 6675 has been discontinued/retired. Adafruit has the [MAX31855](https://www.adafruit.com/product/269) as the upgrade.
-
-## Arduino Schematic
-Wiring diagram showing LCD output with Flow, Pressure, and Temperature sensors
-![](FLOW-PRESSURE-TEMP_ARDUINO_schematic.png "Arduino Schematic showing LCD output with Flow, Pressure, and Temperature sensors")
