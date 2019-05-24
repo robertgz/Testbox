@@ -1,4 +1,4 @@
-Arduino project reading from three sensors and outputing to an lcd.
+Arduino project in C++ that reads from three sensors and outputs to an lcd.
 
 ## Dependencies
 * MAX6675 library by Adafruit Version 1.0.0
